@@ -5,7 +5,7 @@ public class Worker extends Thread {
 	
 	private UnsafeCounter counter;
 	private int ntimes;
-	
+
 	public Worker(UnsafeCounter c, int ntimes){
 		counter = c;
 		this.ntimes = ntimes;

@@ -2,7 +2,7 @@ package pcd.lab02.check_act;
 
 public class WorkerA extends Thread{
 	
-	private Counter counter;
+	private final Counter counter;
 	private int ntimes;
 	
 	public WorkerA(Counter c, int ntimes){
@@ -13,8 +13,12 @@ public class WorkerA extends Thread{
 	public void run(){
 		try {
 			for (int i = 0; i < ntimes; i++){
-				if (counter.getValue() > 0){
-					counter.dec();
+				synchronized (counter) {
+					// Check
+					if (counter.getValue() > 0){
+						// Act
+						counter.dec();
+					}
 				}
 			}
 		} catch (Exception ex){

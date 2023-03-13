@@ -11,7 +11,15 @@ public class MyWorkerA extends Worker {
 	
 	public void run(){
 		while (true){
-		  action1();	
+		  action1();
+		  /*
+		  	Quando un thread é in sezione critica, nessun altro  thread puó essere in sezione critica.
+		  	Possibili sequenze tra MyWorkerA e MyWorkerB:
+		  		- a1, a2, a3, b1, b2, b3
+		  		- a1, b1, b2, b3, a2, a3
+		  		- a1, b1, b2, a2, b3, a3
+		  	Esempio di sequenza impossibile: a1, a2, b1, a3, b2, b3
+		   */
 		  synchronized(lock){
 			  action2();	
 			  action3();	

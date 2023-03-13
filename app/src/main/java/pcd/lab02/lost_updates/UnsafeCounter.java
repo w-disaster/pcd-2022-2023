@@ -8,7 +8,7 @@ public class UnsafeCounter {
 		this.cont = base;
 	}
 	
-	public void inc(){
+	public synchronized void inc(){
 		cont++;
 	}
 	
