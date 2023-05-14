@@ -33,6 +33,15 @@ dependencies {
     /* module 2.3 - reactive programming - RxJava */
 	implementation 'io.reactivex.rxjava3:rxjava:3.1.4'
     
+    /* module 3.1 - actors - akka*/
+  	implementation platform("com.typesafe.akka:akka-bom_2.13:2.8.2")
+  	implementation "com.typesafe.akka:akka-actor-typed_2.13"
+    testImplementation "com.typesafe.akka:akka-actor-testkit-typed_2.13"    
+    
+    /* logging framework SLF4J */
+	implementation 'org.slf4j:slf4j-api:2.0.7'
+	// testImplementation 'org.slf4j:slf4j-reload4j:2.0.7'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
 
 }
 
