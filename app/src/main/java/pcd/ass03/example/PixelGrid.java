@@ -1,12 +1,13 @@
 package pcd.ass03.example;
 
-public class PixelGrid {
+import java.util.Arrays;
 
-	private int nRows;
-	private int nColumns;
-	private int[][] grid;
+public class PixelGrid {
+	private final int nRows;
+	private final int nColumns;
+	private final int[][] grid;
 	
-	public PixelGrid(int nRows, int nColumns) {
+	public PixelGrid(final int nRows, final int nColumns) {
 		this.nRows = nRows;
 		this.nColumns = nColumns;
 		grid = new int[nRows][nColumns];
@@ -14,13 +15,11 @@ public class PixelGrid {
 
 	public void clear() {
 		for (int i = 0; i < nRows; i++) {
-			for (int j = 0; j < nColumns; j++) {
-				grid[i][j] = 0;
-			}
+			Arrays.fill(grid[i], 0);
 		}
 	}
 	
-	public void set(int x, int y, int c) {
+	public void set(final int x, final int y, final int c) {
 		grid[y][x] = c;
 	}
 	
