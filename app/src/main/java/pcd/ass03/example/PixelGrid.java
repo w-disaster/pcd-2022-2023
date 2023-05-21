@@ -19,8 +19,8 @@ public class PixelGrid {
 		}
 	}
 	
-	public void set(final int x, final int y, final int c) {
-		grid[y][x] = c;
+	public void set(final int x, final int y, final int color) {
+		grid[y][x] = color;
 	}
 	
 	public int get(int x, int y) {
