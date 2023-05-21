@@ -15,20 +15,33 @@ public class PixelGridView extends JFrame {
     private final int w, h;
     private final List<PixelGridEventListener> pixelListeners;
 	private final List<MouseMovedListener> movedListener;
+
+	private final List<ColorChangeListener> colorChangeListeners;
     
     public PixelGridView(PixelGrid grid, BrushManager brushManager, int w, int h){
 		this.grid = grid;
 		this.w = w;
 		this.h = h;
+		pixelListeners = new ArrayList<>();
+		movedListener = new ArrayList<>();
+		colorChangeListeners = new ArrayList<>();
         setTitle(".:: PixelArt ::.");
 		setResizable(false);
         panel = new VisualiserPanel(grid, brushManager, w, h);
         panel.addMouseListener(createMouseListener());
 		panel.addMouseMotionListener(createMotionListener());
+		var colorChangeButton = new JButton("Change color");
+		colorChangeButton.addActionListener(e -> {
+			var color = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
+			if (color != null) {
+				colorChangeListeners.forEach(l -> l.colorChanged(color.getRGB()));
+			}
+		});
+		// add panel and a button to the button to change color
+		add(panel, BorderLayout.CENTER);
+		add(colorChangeButton, BorderLayout.SOUTH);
         getContentPane().add(panel);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        pixelListeners = new ArrayList<>();
-		movedListener = new ArrayList<>();
 		hideCursor();
     }
     
@@ -38,19 +51,16 @@ public class PixelGridView extends JFrame {
         
     public void display() {
 		SwingUtilities.invokeLater(() -> {
-			this.getContentPane().setPreferredSize(new Dimension(w, h));
 			this.pack();
 			this.setVisible(true);
 		});
     }
     
-    public void addPixelGridEventListener(PixelGridEventListener l) {
-		pixelListeners.add(l);
-    }
+    public void addPixelGridEventListener(PixelGridEventListener l) { pixelListeners.add(l); }
 
-	public void addMouseMovedListener(MouseMovedListener l) {
-		movedListener.add(l);
-	}
+	public void addMouseMovedListener(MouseMovedListener l) { movedListener.add(l); }
+
+	public void addColorChangedListener(ColorChangeListener l) { colorChangeListeners.add(l); }
 
 	private void hideCursor() {
 		var cursorImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
@@ -96,5 +106,4 @@ public class PixelGridView extends JFrame {
 			}
 		};
 	}
-
 }

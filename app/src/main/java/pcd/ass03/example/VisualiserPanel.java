@@ -15,6 +15,7 @@ public class VisualiserPanel extends JPanel {
         this.w = w;
         this.h = h;
         this.brushManager = brushManager;
+        this.setPreferredSize(new Dimension(w, h));
     }
 
     public void paint(Graphics g){
@@ -43,9 +44,9 @@ public class VisualiserPanel extends JPanel {
             int y = row * dy;
             for (int column = 0; column < grid.getNumColumns(); column++) {
                 int x = column * dx;
-                int c = grid.get(column, row);
-                if (c != 0) {
-                    g2.setColor(new Color(c));
+                int color = grid.get(column, row);
+                if (color != 0) {
+                    g2.setColor(new Color(color));
                     g2.fillRect(x + STROKE_SIZE, y + STROKE_SIZE, dx - STROKE_SIZE, dy - STROKE_SIZE);
                 }
             }

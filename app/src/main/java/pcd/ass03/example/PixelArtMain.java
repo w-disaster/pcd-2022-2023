@@ -1,12 +1,9 @@
 package pcd.ass03.example;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.util.Random;
 
 public class PixelArtMain {
+
 	public static int randomColor() {
 		Random rand = new Random();
 		return rand.nextInt(256 * 256 * 256);
@@ -15,7 +12,9 @@ public class PixelArtMain {
 	public static void main(String[] args) {
 		var brushManager = new BrushManager();
 		var localBrush = new BrushManager.Brush(0, 0, randomColor());
+		var fooBrush = new BrushManager.Brush(0, 0, randomColor());
 		brushManager.addBrush(localBrush);
+		brushManager.addBrush(fooBrush);
 		PixelGrid grid = new PixelGrid(40,40);
 
 		Random rand = new Random();
@@ -24,15 +23,19 @@ public class PixelArtMain {
 		}
 
 		PixelGridView view = new PixelGridView(grid, brushManager, 800, 800);
+
 		view.addMouseMovedListener((x, y) -> {
 			localBrush.updatePosition(x, y);
 			view.refresh();
 		});
+
 		view.addPixelGridEventListener((x, y) -> {
-			System.out.println("=> " + x + " " + y);
-			grid.set(x, y, localBrush.color);
+			grid.set(x, y, localBrush.getColor());
 			view.refresh();
 		});
+
+		view.addColorChangedListener(localBrush::setColor);
+
 		view.display();
 	}
 
