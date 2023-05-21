@@ -1,4 +1,4 @@
-package pcd.ass03;
+package pcd.ass03.example;
 
 public class PixelGrid {
 
